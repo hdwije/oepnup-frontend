@@ -2,12 +2,17 @@ import React from 'react';
 import AddAvailability from './components/AddAvailability';
 import EditAvailability from './components/EditAvailability';
 import UpcomingSessions from './components/UpcomingSessions';
-import { useQuery } from '@tanstack/react-query';
 
 function App() {
   return (
-    <div style={{ fontFamily: 'Arial, sans-serif', padding: '20px' }}>
-      <h1 style={{ textAlign: 'center' }}>Psychologist Dashboard</h1>
+    <div
+      style={{ fontFamily: 'Arial, sans-serif', padding: '20px' }}
+      className="App"
+    >
+      <div className="App-logo">OpenUp</div>
+      <h1 style={{ textAlign: 'center' }} className="App-header">
+        Psychologist Dashboard
+      </h1>
       <div
         style={{
           display: 'flex',
