@@ -1,7 +1,19 @@
 import React from 'react';
+import { getAvailabilities } from '../services/actions/availability';
+import { useQuery } from '@tanstack/react-query';
 
 const EditAvailability = () => {
-  const availabilities = ['Monday 12:45 - 13:15', 'Monday 12:45 - 13:15'];
+  const {
+    data: availabilities,
+    isLoading,
+    error,
+  } = useQuery({
+    queryKey: ['getAvailabilities', 1],
+    queryFn: ({ queryKey }) => getAvailabilities(queryKey[1] as number),
+  });
+
+  if (isLoading) return <div>Loading sessions...</div>;
+  if (error) return <div>Error fetching sessions!</div>;
 
   return (
     <div>

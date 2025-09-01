@@ -2,6 +2,7 @@ import React from 'react';
 import AddAvailability from './components/AddAvailability';
 import EditAvailability from './components/EditAvailability';
 import UpcomingSessions from './components/UpcomingSessions';
+import { useQuery } from '@tanstack/react-query';
 
 function App() {
   return (
@@ -25,7 +26,7 @@ function App() {
           <h3 style={{ margin: '0 0 10px 0', borderBottom: '1px solid black' }}>
             Add Availability
           </h3>
-          <AddAvailability />
+          <AddAvailability psychologistId={1} />
         </div>
         <div
           style={{
