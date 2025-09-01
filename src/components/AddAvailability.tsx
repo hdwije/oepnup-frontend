@@ -1,13 +1,44 @@
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import React, { useState } from 'react';
+import { addAvailability } from '../services/actions/availability';
 
-const AddAvailability = () => {
+type AvailabilityInput = {
+  psychologistsId: number;
+  from: string;
+  to: string;
+};
+
+interface Props {
+  psychologistId: number;
+}
+
+const AddAvailability = ({ psychologistId }: Props) => {
   const [fromDate, setFromDate] = useState('');
   const [toDate, setToDate] = useState('');
   const [fromTime, setFromTime] = useState('');
   const [toTime, setToTime] = useState('');
+  const queryClient = useQueryClient();
 
-  const handleSubmit = () => {
-    console.log('Availability added:', { fromDate, toDate, fromTime, toTime });
+  const mutation = useMutation<any, Error, AvailabilityInput>({
+    mutationFn: (newSlot: AvailabilityInput) => addAvailability(newSlot),
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ['availability', psychologistId],
+      });
+    },
+  });
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+
+    mutation.mutate({
+      psychologistsId: psychologistId,
+      from: fromDate,
+      to: toDate,
+    });
+
+    setFromDate('');
+    setToDate('');
   };
 
   return (
